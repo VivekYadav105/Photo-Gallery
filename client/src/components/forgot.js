@@ -16,15 +16,18 @@ function ForgotPassword() {
   }, [email]);
 
   const postForgotPasswordData = useCallback(async () => {
-    const post = await fetch(`${process.env.REACT_BACKEND}/forgotpassword`, {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "content-type": "application/json",
-        Authorization: `Bearer ${sessionStorage.getItem("user")}`,
-      },
-      body: JSON.stringify(email),
-    });
+    const post = await fetch(
+      `${process.env.REACT_APP_BACKEND}/forgotpassword`,
+      {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${sessionStorage.getItem("user")}`,
+        },
+        body: JSON.stringify(email),
+      }
+    );
     const response = await post.json();
     console.log(response);
     if (response.status == 200) {
