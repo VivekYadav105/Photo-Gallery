@@ -31,9 +31,9 @@ function Signup() {
     }
   }
 
-  const postSignupData = useCallback(async()=> {
+  const postSignupData = useCallback(async () => {
     console.log("callback initiated");
-    const post = await fetch(`/signup`, {
+    const post = await fetch(`/api/signup`, {
       method: "POST",
       mode: "cors",
       headers: {
@@ -56,7 +56,7 @@ function Signup() {
     } catch (err) {
       toast.error("error!please try again");
     }
-  })
+  });
 
   useEffect(() => {
     if (user) postSignupData();

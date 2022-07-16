@@ -12,14 +12,17 @@ function ForgotPassword() {
 
   useEffect(() => {
     console.log(email);
-    if(email) postForgotPasswordData();
+    if (email) postForgotPasswordData();
   }, [email]);
 
   const postForgotPasswordData = useCallback(async () => {
-    const post = await fetch(`/forgotpassword`, {
+    const post = await fetch(`/api/forgotpassword`, {
       method: "POST",
       mode: "cors",
-      headers: { "content-type": "application/json",Authorization:`Bearer ${sessionStorage.getItem('user')}` },
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${sessionStorage.getItem("user")}`,
+      },
       body: JSON.stringify(email),
     });
     const response = await post.json();
@@ -34,7 +37,10 @@ function ForgotPassword() {
   });
 
   return (
-    <section className="loginWrapper" style={{display:'flex',justifyContent:'center'}}>
+    <section
+      className="loginWrapper"
+      style={{ display: "flex", justifyContent: "center" }}
+    >
       <ToastContainer
         position="top-center"
         autoClose={5000}
@@ -47,11 +53,24 @@ function ForgotPassword() {
         pauseOnHover
         theme="dark"
       />
-      <div className="right" style={{display:'flex',justifyContent:'center'}}>
+      <div
+        className="right"
+        style={{ display: "flex", justifyContent: "center" }}
+      >
         <div className="form-wrapper">
           <div className="text-highlight">Node user authentication project</div>
           <form onSubmit={handleSubmit}>
-            <h1 className="" style={{color:'#6055a5',fontSize:'24px',textAlign:'center',margin:'0'}}>ForgotPassword</h1>
+            <h1
+              className=""
+              style={{
+                color: "#6055a5",
+                fontSize: "24px",
+                textAlign: "center",
+                margin: "0",
+              }}
+            >
+              ForgotPassword
+            </h1>
             <div className="input-field">
               <input
                 type="Email"

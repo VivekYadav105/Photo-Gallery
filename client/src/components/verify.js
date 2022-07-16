@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 function Verify() {
   async function addUser() {
     const userToken = localStorage.getItem("Tempuser");
-    const post = await fetch(`/verify`, {
+    const post = await fetch(`/api/verify`, {
       mode: "cors",
       method: "POST",
       headers: {
@@ -17,12 +17,12 @@ function Verify() {
     if (response.status == 201) {
       window.location.href = "/login";
       localStorage.removeItem("Tempuser");
-    }
-    else{
+    } else {
       toast.warn(response.msg);
-      setTimeout(()=>{window.location.href="/"},1000)
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1000);
     }
-
   }
 
   useEffect(() => {

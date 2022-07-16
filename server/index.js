@@ -24,7 +24,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
-app.use("/", userRouter);
+app.use("/user", userRouter);
 
 app.listen(PORT, (err) => {
   console.log("connected to server succesfully", PORT);

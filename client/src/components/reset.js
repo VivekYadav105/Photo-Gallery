@@ -19,18 +19,20 @@ function ResetPassword() {
     }
   }
 
-  useEffect(()=>{
-    if(password){postResetData()}
-  },[password])
+  useEffect(() => {
+    if (password) {
+      postResetData();
+    }
+  }, [password]);
 
   const postResetData = useCallback(async () => {
-    const post = await axios.post(`/resetPassword`, {
+    const post = await axios.post(`/api/resetPassword`, {
       userid: Params.userid,
       token: Params.token,
       password: password,
     });
 
-    console.log(post)
+    console.log(post);
 
     if (post.status == 200) {
       toast.success(post.msg);

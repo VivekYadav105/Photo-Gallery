@@ -16,7 +16,7 @@ function Login() {
 
   async function postLoginData() {
     toast.info("Login initiated");
-    const post = await fetch(`/login`, {
+    const post = await fetch(`/api/login`, {
       method: "POST",
       mode: "cors",
       headers: {
