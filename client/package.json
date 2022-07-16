@@ -20,7 +20,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy":"https://authentication-backend-127yr4.herokuapp.com/",
+  "proxy":"https://mern-authentication-backend-f2nr9xucz-vivekyadav105.vercel.app/",
   "eslintConfig": {
     "extends": [
       "react-app",
