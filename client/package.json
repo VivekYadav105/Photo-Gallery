@@ -20,6 +20,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "https-proxy":"https://mern-authentication-backend.vercel.app/",
   "eslintConfig": {
     "extends": [
       "react-app",
