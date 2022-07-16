@@ -2,7 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config();
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 console.log(Number(process.env.NODE_TOKEN_TEMP_EXPIRE))
 
 const User = require("../models/usermodel");
