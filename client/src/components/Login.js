@@ -16,7 +16,7 @@ function Login() {
 
   async function postLoginData() {
     toast.info("Login initiated");
-    const post = await fetch(`${process.env.REACT_BACKEND}/login`, {
+    const post = await fetch(`${process.env.REACT_APP_BACKEND}/login`, {
       method: "POST",
       mode: "cors",
       headers: {
