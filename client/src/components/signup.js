@@ -33,7 +33,7 @@ function Signup() {
 
   const postSignupData = useCallback(async () => {
     console.log("callback initiated");
-    const post = await fetch(`/api/signup`, {
+    const post = await fetch(`${process.env.REACT_BACKEND}/signup`, {
       method: "POST",
       mode: "cors",
       headers: {

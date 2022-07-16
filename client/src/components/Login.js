@@ -16,7 +16,7 @@ function Login() {
 
   async function postLoginData() {
     toast.info("Login initiated");
-    const post = await fetch(`/api/login`, {
+    const post = await fetch(`${process.env.REACT_BACKEND}/login`, {
       method: "POST",
       mode: "cors",
       headers: {
@@ -35,11 +35,11 @@ function Login() {
 
       if (response.status == 200) {
         console.log(response.user);
-        window.location.href="/profile"
+        window.location.href = "/profile";
         toast.success("user login succesful");
-        
+
         setTimeout(() => {
-          login(response.user)
+          login(response.user);
           window.location.href = "/";
         }, 2000);
       }

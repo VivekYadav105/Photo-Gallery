@@ -16,7 +16,7 @@ function ForgotPassword() {
   }, [email]);
 
   const postForgotPasswordData = useCallback(async () => {
-    const post = await fetch(`/api/forgotpassword`, {
+    const post = await fetch(`${process.env.REACT_BACKEND}/forgotpassword`, {
       method: "POST",
       mode: "cors",
       headers: {

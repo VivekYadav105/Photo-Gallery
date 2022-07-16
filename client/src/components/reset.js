@@ -26,7 +26,7 @@ function ResetPassword() {
   }, [password]);
 
   const postResetData = useCallback(async () => {
-    const post = await axios.post(`/api/resetPassword`, {
+    const post = await axios.post(`${process.env.REACT_BACKEND}/resetPassword`, {
       userid: Params.userid,
       token: Params.token,
       password: password,
