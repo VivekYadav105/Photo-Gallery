@@ -21,7 +21,7 @@ import Header from "./components/header";
 export const UserContext = React.createContext();
 
 function App() {
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState(sessionStorage.getItem(process.env.REACT_APP_USER_SESSION_LOGIN)||false);
 
   function logout() {
     sessionStorage.setItem(process.env.REACT_APP_USER_SESSION_LOGIN, false);
@@ -31,6 +31,7 @@ function App() {
   function login(i) {
     setUser(i);
     sessionStorage.setItem(process.env.REACT_APP_USER_SESSION_LOGIN, i);
+    return true
   }
 
   return (

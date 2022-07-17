@@ -35,12 +35,13 @@ function Login() {
 
       if (response.status == 200) {
         console.log(response.user);
-        window.location.href = "/profile";
         toast.success("user login succesful");
 
         setTimeout(() => {
-          login(response.user);
-          window.location.href = "/";
+          const loginResult = login(response.user);
+          if (loginResult) {
+            window.location.href = "/profile";
+          }
         }, 2000);
       }
     } catch (err) {
