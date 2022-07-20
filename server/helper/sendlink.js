@@ -2,8 +2,8 @@ const nodemailer = require("nodemailer");
 
 async function sendmail(email, userid, token, type) {
   const testAccount = {
-    user: "nodemailerdemo2@gmail.com",
-    pass: "lkuwrqgzqesvwgij",
+    user: process.env.NODE_EMAIL,
+    pass: process.env.NODE_EMAIL_PASSWORD,
   };
 
   try {
