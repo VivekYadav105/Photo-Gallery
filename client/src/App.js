@@ -5,7 +5,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Redirect,
   Navigate,
 } from "react-router-dom";
 import Signup from "./components/signup";
@@ -14,23 +13,22 @@ import ForgotPassword from "./components/forgot";
 import Verify from "./components/verify";
 import ResetPassword from "./components/reset";
 import React from "react";
-import Home from "./components/home";
-import Profile from "./components/profile";
 import Header from "./components/header";
+import Gallery from "./components/gallery";
 
 export const UserContext = React.createContext();
 
 function App() {
-  const [user, setUser] = useState(sessionStorage.getItem(process.env.REACT_APP_USER_SESSION_LOGIN)||false);
+  const [user, setUser] = useState(localStorage.getItem(process.env.REACT_APP_USER_SESSION_LOGIN)||false);
 
   function logout() {
-    sessionStorage.setItem(process.env.REACT_APP_USER_SESSION_LOGIN, false);
+    localStorage.setItem(process.env.REACT_APP_USER_SESSION_LOGIN, false);
     setUser(false);
   }
 
   function login(i) {
     setUser(i);
-    sessionStorage.setItem(process.env.REACT_APP_USER_SESSION_LOGIN, i);
+    localStorage.setItem(process.env.REACT_APP_USER_SESSION_LOGIN, i);
     return true
   }
 
@@ -38,9 +36,8 @@ function App() {
     <div className="App">
       <UserContext.Provider value={{ user, login, logout }}>
         <Router>
-          <Header></Header>
+          {window.location.pathname==='/'&&<Header></Header>}
           <Routes>
-            <Route element={<Home></Home>} exact path="/"></Route>
             <Route element={<Signup />} exact path="/signup"></Route>
             <Route element={<Login />} exact path="/login"></Route>
             <Route
@@ -59,9 +56,9 @@ function App() {
               path="/resetPassword/:token/:userid"
             ></Route>
             <Route
-              path="/profile"
+              path="/"
               exact
-              element={user ? <Profile /> : <Navigate to="/login"></Navigate>}
+              element={user ? <Gallery /> : <Navigate to="/login"></Navigate>}
             ></Route>
           </Routes>
         </Router>

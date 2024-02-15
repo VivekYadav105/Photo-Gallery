@@ -14,8 +14,7 @@ userRouter.get("/", (req, res) => {
 });
 
 userRouter.post("/signup", async (req, res) => {
-  console.log("signup initalized");
-  
+  console.log(req.headers)
   const { fname, lname, email, password } = await req.body;
   const encryptedPassword = await bcrypt.hash(
     password,
@@ -38,7 +37,9 @@ userRouter.post("/signup", async (req, res) => {
         { expiresIn: Number(process.env.NODE_TOKEN_TEMP_EXPIRE) }
       );
       console.log(jwt.decode(token));
-      const emailStatus = await sendmail(email, "tempuser", token, "verify");
+      const sender = req.headers.referer
+      console.log(sender)
+      const emailStatus = await sendmail(email, "tempuser", token, "verify",sender);
       if (emailStatus.status == 200) {
         res.status(200);
         res.json({ ...emailStatus, token: token });
@@ -85,11 +86,13 @@ userRouter.post("/login", async (req, res) => {
 
   if (user) {
     if (passwordCheck) {
+      const jwtValue = {
+        id:user._id,
+        email: email,
+        password: password,
+      }
       const token = jwt.sign(
-        {
-          email: email,
-          password: password,
-        },
+        jwtValue,
         process.env.NODE_SECRET_KEY,
         { expiresIn: process.env.NODE_TOKEN_MAIN_EXPIRE }
       );
@@ -116,8 +119,8 @@ userRouter.post("/forgotpassword", async (req, res) => {
       process.env.NODE_SECRET_KEY_2,
       { expiresIn: Number(process.env.NODE_TOKEN_TEMP_EXPIRE) }
     );
-
-    const result = await sendmail(email, user._id, token, "resetPassword");
+    const sender = req.headers.referer 
+    const result = await sendmail(email, user._id, token, "resetPassword",sender);
     res.json(result);
   } else {
     res.json({

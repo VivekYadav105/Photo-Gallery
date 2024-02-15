@@ -3,7 +3,7 @@ import { UserContext } from "../App";
 import { Link, useLocation } from "react-router-dom";
 import "./header.css";
 function Header() {
-  const { user,logout,login } = useContext(UserContext);
+  const { user,logout } = useContext(UserContext);
   const location = useLocation(null);
 
   return (
@@ -14,17 +14,12 @@ function Header() {
         </div>
         <div className="nav-wrapper">
           <ul className="nav">
-            <li
-              className={`nav-item ${location.pathname == "/" ? "active" : ""}`}
-            >
-              <Link to="/">Home</Link>
-            </li>
-            <li className={`nav-item ${location.pathname == "/profile" ? "active" : ""}`}>
-              <Link to="/profile">Profile</Link>
+            <li className={`nav-item ${location.pathname === "/" ? "active" : ""}`}>
+              <Link to="/">photos</Link>
             </li>
             {user ? (
-              <li className={`nav-item`} onClick={logout}><a>Logout</a></li>) : (
-              <li className={`nav-item ${location.pathname == "/login" ? "active" : ""}`} >
+              <li className={`nav-item`} onClick={logout}><span>Logout</span></li>) : (
+              <li className={`nav-item ${location.pathname === "/login" ? "active" : ""}`} >
                 <Link to="/login">Login/signup</Link>
               </li>
             )}
