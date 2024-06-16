@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { UserContext } from "../App";
+import { UserContext } from "../../App";
 import { Link, useLocation } from "react-router-dom";
 import "./header.css";
 function Header() {

@@ -7,14 +7,14 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Signup from "./components/signup";
+import Signup from "./components/auth/signup";
 import Login from "./components/Login";
 import ForgotPassword from "./components/forgot";
-import Verify from "./components/verify";
-import ResetPassword from "./components/reset";
+import Verify from "./components/auth/verify";
+import ResetPassword from "./components/auth/reset";
 import React from "react";
-import Header from "./components/header";
-import Gallery from "./components/gallery";
+import Header from "./components/partials/header";
+import Gallery from "./components/gallery/gallery";
 
 export const UserContext = React.createContext();
 
