@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import "./style.css";
+import "../style.css";
 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -91,7 +91,8 @@ function Signup() {
       </div>
       <div className="right">
         <div className="form-wrapper">
-          <div className="text-highlight">Gallery Store <span style={{fontWeight:"500",color:"var(--bg)"}}>&rarr;</span> store your photos</div>
+          <div className="text-highlight">
+            <span className="text-main">Gallery</span><span style={{fontWeight:"500",color:"var(--bg)"}}>&rarr;</span> store your photos</div>
           <form onSubmit={handleSubmit}>
             <div className="input-field">
               <input type="text" id="fname" placeholder="First Name" required />

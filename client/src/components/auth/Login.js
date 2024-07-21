@@ -1,7 +1,8 @@
-import "./style.css";
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+// import "./style.css";
+import {  useContext, useEffect, useRef, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { UserContext } from "../../App";
+import '../style.css'
 
 function Login() {
   const [userState, setUserState] = useState();
@@ -24,16 +25,16 @@ function Login() {
 
   async function postLoginData() {
     toast.info("Login initiated");
-    const origin = process.env.REACT_APP_BACKEND || "http://localhost:7000"
-    const post = await fetch(`${origin}/user/login`, {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(userState),
-    });
     try {
+      const origin = process.env.REACT_APP_BACKEND || "http://localhost:7000"
+      const post = await fetch(`${origin}/user/login`, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(userState),
+      });
       const response = await post.json();
       if (response.status == 401) {
         toast.warn("enter correct password");
@@ -93,7 +94,7 @@ function Login() {
       <div className="right">
         <div className="form-wrapper">
           <div className="text-highlight">
-            <span className="text-main">Photo Gallery</span>
+            <span className="text-main">Gallery</span>
           </div>
           <form onSubmit={handleSubmit}>
             <div className="input-field">

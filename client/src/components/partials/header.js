@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "../../App";
 import { Link, useLocation } from "react-router-dom";
-import "./header.css";
+import "../header.css";
 function Header() {
   const { user,logout } = useContext(UserContext);
   const location = useLocation(null);
@@ -10,7 +10,8 @@ function Header() {
     <header>
       <div className="container">
         <div className="logo">
-          <i className="fa-solid fa-images-user"></i>
+          <img src="/logo.png" className="logo" alt="GALLERY"/>
+          <span>GALLERY</span>
         </div>
         <div className="nav-wrapper">
           <ul className="nav">

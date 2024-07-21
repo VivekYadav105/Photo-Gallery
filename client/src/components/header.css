@@ -55,6 +55,8 @@ header .container {
 
 .text-main{
   padding-right: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 .header-btn-2{
@@ -84,4 +86,13 @@ header .container {
 
 .header-btn-2:hover::after{
   width: 95px;
+}
+
+@media screen and (max-width:550px) {
+    header{
+      padding:.75rem 1.25rem;
+    }
+    header .container{
+      width: 100%;
+    }
 }

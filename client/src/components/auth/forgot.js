@@ -61,7 +61,7 @@ function ForgotPassword() {
         style={{ display: "flex", justifyContent: "center" }}
       >
         <div className="form-wrapper">
-          <div className="text-highlight">Node user authentication project</div>
+          <div className="text-highlight">Claim Back Your <span className="text-main">GALLERY</span></div>
           <form onSubmit={handleSubmit}>
             <h1
               className=""

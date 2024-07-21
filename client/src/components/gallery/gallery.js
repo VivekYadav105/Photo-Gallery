@@ -1,13 +1,15 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { BounceLoader } from "react-spinners";
 import axios from "axios";
-import './gallery.css'
+import '../gallery.css'
 import { UserContext } from "../../App";
 import Photo from './photo'
 import UploadModal from './uploadModal'
+import { toast } from "react-toastify";
 
 export default function Gallery(){
     const [photos,setPhotos] = useState([]);
+    const [expanded,setExpanded] = useState(-1);
     const [loading,setLoading] = useState(false);
     const [modal,setModal] = useState(false);
     const {user} = useContext(UserContext)
@@ -20,11 +22,19 @@ export default function Gallery(){
         console.log("inside")
         const origin = process.env.REACT_APP_BACKEND || "http://localhost:7000"
         console.log(origin)
-        const {file} = e.target;
-        console.log(file.files[0])
+        const {file,name} = e.target;
+        const fileType = file.files[0].type
+        console.log(fileType)
+        if(fileType.split('/')[0]!='images'){
+            toast.error('given file is not an image')
+            return;
+        }
+        let fileName;
+        if(name.value) fileName = name.value
+        else fileName = file.files[0].name
         const formData = new FormData();
         formData.append('files', file.files[0]);
-        formData.append('fileName', file.files[0].name);
+        formData.append('fileName', fileName);
         const config = {
           headers: {
             'content-type': 'multipart/form-data',
@@ -35,7 +45,8 @@ export default function Gallery(){
             setUploadProgress(percentCompleted);
           }
         };
-        fileInputRef.current.value = ""
+        // console.log(fileInputRef.current.value)
+        // fileInputRef.current.value = null
         const url = `${origin}/photo/upload`
         const post = await axios.post(url, formData, config)
         const response = post.data
@@ -49,6 +60,11 @@ export default function Gallery(){
     function parsePhoto(data){
         const imageUrl =  URL.createObjectURL(new Blob([new Uint8Array(data)]))
         return imageUrl
+    }
+
+    function expandOptions(i){
+        console.log(i)
+        setExpanded(prev=>prev===i?-1:i)
     }
 
     useEffect(()=>{
@@ -78,13 +94,16 @@ export default function Gallery(){
                 <h1 className="gallery-heading">
                     Your Photos
                 </h1>
-                <button className="header-btn" type="button" onClick={()=>{setModal(true)}}>Add New</button>
+                <div className="buttons">
+                    <button className="header-btn" type="button" onClick={()=>{setModal(true)}}>Add New</button>
+                    <button className="header-btn" type="button">View Shared</button>
+                </div>
             </div>
             {photos.length===0&&<p className="header-text">Start by uploading new Photos here</p>}
             {modal&&<UploadModal handleCloseModal={()=>setModal(false)} uploadPhoto={uploadPhoto}/>}
             <div className="photo-section">
                 {loading&&<BounceLoader size={10} color="purple"/>}
-                {photos&&photos.map((ele,index)=><Photo key={index} {...ele}/>)}
+                {photos&&photos.map((ele,index)=><Photo expandOptions={expandOptions} index={index} expand={index===expanded} key={index} {...ele}/>)}
             </div>
         </section>
     )

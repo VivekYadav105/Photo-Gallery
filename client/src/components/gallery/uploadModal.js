@@ -1,4 +1,7 @@
+import { useRef } from "react"
+
 const UploadModal = ({handleCloseModal,uploadPhoto,...props})=>{
+    const fileInputRef = useRef()
     return(
         <div className="uploadModal">
             <form className="upload-form" encType='multipart/form-data' onSubmit={uploadPhoto}>
@@ -7,6 +10,7 @@ const UploadModal = ({handleCloseModal,uploadPhoto,...props})=>{
                 </button>
                 <div className="input-field">
                     <input
+                        accept="image/*"
                         type="file"
                         id="photo-name"
                         name="file"
@@ -16,10 +20,13 @@ const UploadModal = ({handleCloseModal,uploadPhoto,...props})=>{
                     />
                 </div>
                 <div className="input-field">
+                    <input name="name" placeholder="enter the file name" />
+                </div>
+                <div className="input-field">
                 <button type="submit">Upload</button>
                     <button
                         type="button"
-                        onClick={()=>{fileInputRef.current.value = ""}}
+                        onClick={()=>{console.log('clicked');fileInputRef.current.value = ""}}
                     >
                         Clear
                     </button>
@@ -28,3 +35,5 @@ const UploadModal = ({handleCloseModal,uploadPhoto,...props})=>{
         </div>
     )
 }
+
+export default UploadModal

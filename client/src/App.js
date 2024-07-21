@@ -6,21 +6,25 @@ import {
   Routes,
   Route,
   Navigate,
+  useLocation,
 } from "react-router-dom";
 import Signup from "./components/auth/signup";
-import Login from "./components/Login";
-import ForgotPassword from "./components/forgot";
+import Home from './components/home/home'
+import Login from "./components/auth/Login";
+import ForgotPassword from "./components/auth/forgot";
 import Verify from "./components/auth/verify";
 import ResetPassword from "./components/auth/reset";
 import React from "react";
 import Header from "./components/partials/header";
 import Gallery from "./components/gallery/gallery";
+import NotFound from "./components/notFound/notFound";
 
 export const UserContext = React.createContext();
 
 function App() {
-  const [user, setUser] = useState(localStorage.getItem(process.env.REACT_APP_USER_SESSION_LOGIN)||false);
-
+  const [user, setUser] = useState(()=>localStorage.getItem(process.env.REACT_APP_USER_SESSION_LOGIN)||false);
+  const location = useLocation()
+  
   function logout() {
     localStorage.setItem(process.env.REACT_APP_USER_SESSION_LOGIN, false);
     setUser(false);
@@ -35,33 +39,33 @@ function App() {
   return (
     <div className="App">
       <UserContext.Provider value={{ user, login, logout }}>
-        <Router>
-          {window.location.pathname==='/'&&<Header></Header>}
+          {location.pathname==='/'&&<Header></Header>}
           <Routes>
-            <Route element={<Signup />} exact path="/signup"></Route>
-            <Route element={<Login />} exact path="/login"></Route>
+            <Route element={<Signup />} exact path="/signup"/>
+            <Route element={<Login />} exact path="/login"/>
             <Route
               element={<Verify />}
               exact
               path="/verify/:token/:user"
-            ></Route>
+            />
             <Route
               element={<ForgotPassword />}
               exact
               path="/forgotPassword"
-            ></Route>
+            />
             <Route
               element={<ResetPassword />}
               exact
               path="/resetPassword/:token/:userid"
-            ></Route>
+            />
             <Route
               path="/"
               exact
               element={user ? <Gallery /> : <Navigate to="/login"></Navigate>}
-            ></Route>
+            />
+            <Route path="/home" element={<Home/>}/>
+            <Route path="*" element={<NotFound/>}/>
           </Routes>
-        </Router>
       </UserContext.Provider>
     </div>
   );
