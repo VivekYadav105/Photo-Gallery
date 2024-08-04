@@ -6,6 +6,7 @@ import { UserContext } from "../../App";
 import Photo from './photo'
 import UploadModal from './uploadModal'
 import { toast } from "react-toastify";
+import { Navigate } from "react-router-dom";
 
 export default function Gallery(){
     const [photos,setPhotos] = useState([]);
@@ -13,9 +14,12 @@ export default function Gallery(){
     const [loading,setLoading] = useState(false);
     const [modal,setModal] = useState(false);
     const {user} = useContext(UserContext)
-    const fileInputRef = useRef(null)
     const [uploadProgress, setUploadProgress] = useState(0);
 
+    useEffect(()=>{
+        console.log(user)
+        if(!user||!user.length) return <Navigate to={'/login'} replace/>
+    },[user])
 
     async function uploadPhoto(e){
         e.preventDefault()

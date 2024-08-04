@@ -22,18 +22,28 @@ import NotFound from "./components/notFound/notFound";
 export const UserContext = React.createContext();
 
 function App() {
-  const [user, setUser] = useState(()=>localStorage.getItem(process.env.REACT_APP_USER_SESSION_LOGIN)||false);
+  const [user, setUser] = useState(null);
   const location = useLocation()
+
+  useEffect(()=>{
+    function checkUser(){
+      const storedUser = localStorage.getItem(process.env.REACT_APP_USER_SESSION_LOGIN)
+      console.log(storedUser)
+      if(storedUser){
+        setUser(JSON.parse(storedUser))
+      }
+    }
+    checkUser()
+  },[])
   
   function logout() {
-    localStorage.setItem(process.env.REACT_APP_USER_SESSION_LOGIN, false);
-    setUser(false);
+    localStorage.setItem(process.env.REACT_APP_USER_SESSION_LOGIN, JSON.stringify(''));
+    setUser(null);
   }
 
   function login(i) {
     setUser(i);
-    localStorage.setItem(process.env.REACT_APP_USER_SESSION_LOGIN, i);
-    return true
+    localStorage.setItem(process.env.REACT_APP_USER_SESSION_LOGIN, JSON.stringify(i));
   }
 
   return (
@@ -61,7 +71,7 @@ function App() {
             <Route
               path="/"
               exact
-              element={user ? <Gallery /> : <Navigate to="/login"></Navigate>}
+              element={user ? <Gallery /> : <Navigate to="/login" replace/>}
             />
             <Route path="/home" element={<Home/>}/>
             <Route path="*" element={<NotFound/>}/>

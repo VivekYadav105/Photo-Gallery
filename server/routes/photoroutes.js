@@ -74,4 +74,20 @@ photoRouter.post("/deletePhoto/:id",(req,res,next)=>{
     }
 })
 
+photoRouter.get('/:id',(req,res,next)=>{
+
+})
+
+photoRouter.post('/share/:id',(req,res,next)=>{
+    
+})
+
+photoRouter.post('/deleteConnection/:id',(req,res,next)=>{
+
+})
+
+photoRouter.post('/editPhoto/:id',(req,res,next)=>{
+    
+})
+
 module.exports = photoRouter
