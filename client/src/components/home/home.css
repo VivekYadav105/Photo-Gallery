@@ -1,0 +1,42 @@
+.home_content{
+    margin: auto;
+    /* min-height: 100vh; */
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.heading{
+    font-size: 52px;
+    line-height: 1.5;
+    text-align: center;
+    font-weight: bold;
+    margin: auto;
+    width:75%;
+}
+
+.heading span{
+    color: hsl(248, 32%, 49%);
+    margin: auto;
+    display: inline-block;
+}
+
+.caption{
+    width: 50%;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.illustration{
+    background-color: hsla(248, 32%, 49%, 0.603);
+    padding: 20px;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 100vw;
+}
+
+.illustration img{
+    width: 100%;
+}

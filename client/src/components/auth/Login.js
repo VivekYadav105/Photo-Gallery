@@ -1,11 +1,15 @@
-import "./style.css";
-import { useCallback, useContext, useEffect, useState } from "react";
+// import "./style.css";
+import {  useContext, useEffect, useRef, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { UserContext } from "../App";
+import { UserContext } from "../../App";
+import '../style.css'
 
 function Login() {
   const [userState, setUserState] = useState();
   const { user, login } = useContext(UserContext);
+
+  const emailRef = useRef(null)
+  const passwordRef = useRef(null)
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -14,17 +18,23 @@ function Login() {
     setUserState({ email: email, password: password });
   }
 
+  function setDemoCredentials(){
+    emailRef.current.value = process.env.REACT_APP_DEMO_EMAIL
+    passwordRef.current.value = process.env.REACT_APP_DEMO_PASS
+  }
+
   async function postLoginData() {
     toast.info("Login initiated");
-    const post = await fetch(`${process.env.REACT_APP_BACKEND}/login`, {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(userState),
-    });
     try {
+      const origin = process.env.REACT_APP_BACKEND || "http://localhost:7000"
+      const post = await fetch(`${origin}/user/login`, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(userState),
+      });
       const response = await post.json();
       if (response.status == 401) {
         toast.warn("enter correct password");
@@ -40,7 +50,7 @@ function Login() {
         setTimeout(() => {
           const loginResult = login(response.user);
           if (loginResult) {
-            window.location.href = "/profile";
+            window.location.href = "/";
           }
         }, 2000);
       }
@@ -76,16 +86,22 @@ function Login() {
             scripted tutorials is great, but understanding how developers think
             is invaluable.
           </p>
+          <button className="header-btn-2" type="button" onClick={()=>{setDemoCredentials()}}>
+            Use demo credentials
+          </button>
         </div>
       </div>
       <div className="right">
         <div className="form-wrapper">
-          <div className="text-highlight">Node user authentication project</div>
+          <div className="text-highlight">
+            <span className="text-main">Gallery</span>
+          </div>
           <form onSubmit={handleSubmit}>
             <div className="input-field">
               <input
                 type="Email"
                 id="address"
+                ref={emailRef}
                 placeholder="Email Address"
                 required
               />
@@ -94,6 +110,7 @@ function Login() {
               <input
                 type="Password"
                 id="password"
+                ref={passwordRef}
                 placeholder="Password"
                 required
               />

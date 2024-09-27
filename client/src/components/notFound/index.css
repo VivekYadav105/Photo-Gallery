@@ -1,0 +1,47 @@
+.wrapper{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 20px;
+    max-width: 500px;
+    flex-wrap: wrap;
+    width: 95vw;
+    margin: auto;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 20px;
+}
+
+.content_404{
+    display: flex;
+    color: #3f3f3f;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.content_404 span{
+    color: inherit;
+}
+
+.no_shadow{
+    box-shadow: none !important;
+}
+
+#text-main{
+    font-weight: bold;
+    font-size: 56px;
+}
+
+#caption{
+    font-weight: medium;
+}

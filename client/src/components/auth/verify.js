@@ -4,7 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 function Verify() {
   async function addUser() {
     const userToken = localStorage.getItem("Tempuser");
-    const post = await fetch(`${process.env.REACT_APP_BACKEND}/verify`, {
+    const origin = process.env.REACT_APP_BACKEND || "http://localhost:7000"
+    const post = await fetch(`${origin}/user/verify`, {
       mode: "cors",
       method: "POST",
       headers: {

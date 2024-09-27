@@ -2,8 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const userRouter = require("./routes/userroutes");
-const User = require("./models/usermodel");
 const morgan = require("morgan");
+const photoRouter = require('./routes/photoroutes')
 
 const app = express();
 
@@ -24,7 +24,15 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
-app.use("/", userRouter);
+
+app.use("/user", userRouter);
+app.use("/photo",photoRouter)
+
+app.get('/',(req,res,next)=>{
+  console.log(req.headers)
+  console.log(req.get('referer'))
+  return res.send(JSON.stringify(req.get("origin")))
+})
 
 app.listen(PORT, (err) => {
   console.log("connected to server succesfully", PORT);

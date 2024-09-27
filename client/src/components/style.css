@@ -29,6 +29,20 @@ section{
     min-height: 100vh;
     align-items: center;
 }
+.logo{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    letter-spacing: 2px;
+    gap: 10px;
+}
+
+.logo img{
+    height: 100%;
+    object-fit: contain;
+}
+
 .left,.right{
     flex-basis: 50%;
     margin: 1rem;
@@ -128,6 +142,10 @@ input:active{
     width: 100%;
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+.buttons{
+    display: flex;
+    gap: 10px;
 }
 button:hover{
     opacity: 0.8;

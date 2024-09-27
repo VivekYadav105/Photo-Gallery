@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import "./style.css";
+import "../style.css";
 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -33,7 +33,8 @@ function Signup() {
 
   const postSignupData = useCallback(async () => {
     console.log("callback initiated");
-    const post = await fetch(`${process.env.REACT_APP_BACKEND}/signup`, {
+    const origin = process.env.REACT_APP_BACKEND || "http://localhost:7000"
+    const post = await fetch(`${origin}/user/signup`, {
       method: "POST",
       mode: "cors",
       headers: {
@@ -43,6 +44,7 @@ function Signup() {
     });
 
     try {
+      console.log(post)
       const response = await post.json();
       if ((await response.status) == 200) {
         toast.success(response.msg);
@@ -54,6 +56,7 @@ function Signup() {
         toast.warn(response.msg);
       }
     } catch (err) {
+      console.log(err)
       toast.error("error!please try again");
     }
   });
@@ -88,7 +91,8 @@ function Signup() {
       </div>
       <div className="right">
         <div className="form-wrapper">
-          <div className="text-highlight">Node user authentication project</div>
+          <div className="text-highlight">
+            <span className="text-main">Gallery</span><span style={{fontWeight:"500",color:"var(--bg)"}}>&rarr;</span> store your photos</div>
           <form onSubmit={handleSubmit}>
             <div className="input-field">
               <input type="text" id="fname" placeholder="First Name" required />
@@ -117,20 +121,6 @@ function Signup() {
                 placeholder="confirm Password"
                 required
               />
-            </div>
-            <div className="input-field">
-              <span className="flex-column">
-                <label htmlFor="branch">branch</label>
-                <select className="" id="branch">
-                  <option value={"CSE"}>CSE</option>
-                  <option value={"ECE"}>ECE</option>
-                  <option value={"DSAI"}>DSAI</option>
-                </select>
-              </span>
-              <span className="flex-column">
-                <label id="date">DoB</label>
-                <input type="date" />
-              </span>
             </div>
             <div className="input-field">
               <button type="submit">Signup</button>

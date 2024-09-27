@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-async function sendmail(email, userid, token, type) {
+async function sendmail(email, userid, token, type,origin) {
   const testAccount = {
     user: "nodemailerdemo2@gmail.com",
     pass: "lkuwrqgzqesvwgij",
@@ -14,7 +14,7 @@ async function sendmail(email, userid, token, type) {
         pass: testAccount.pass,
       },
     });
-    let url = `${process.env.NODE_FRONTEND_URL}/${type}`;
+    let url = `${origin}${type}`;
     let k = Math.floor(Math.random() * 100);
     let mailInfo = await transporter.sendMail({
       from: `no-reply <nodemailer123${k}@gmail.com>`,
