@@ -38,6 +38,7 @@ function App() {
   function logout() {
     localStorage.setItem(process.env.REACT_APP_USER_SESSION_LOGIN, null);
     setUser(null);
+    window.location.href = "/login";
   }
 
   function login(i) {
