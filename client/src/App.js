@@ -36,7 +36,7 @@ function App() {
   },[])
   
   function logout() {
-    localStorage.setItem(process.env.REACT_APP_USER_SESSION_LOGIN, null);
+    localStorage.setItem(process.env.REACT_APP_USER_SESSION_LOGIN, '');
     setUser(null);
     window.location.href = "/login";
   }
