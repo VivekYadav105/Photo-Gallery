@@ -43,6 +43,7 @@ function App() {
   function login(i) {
     setUser(i);
     localStorage.setItem(process.env.REACT_APP_USER_SESSION_LOGIN, i);
+    return true
   }
 
   return (
