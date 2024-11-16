@@ -6,7 +6,7 @@ import '../style.css'
 
 function Login() {
   const [userState, setUserState] = useState();
-  const { user, login } = useContext(UserContext);
+  const { login } = useContext(UserContext);
 
   const emailRef = useRef(null)
   const passwordRef = useRef(null)

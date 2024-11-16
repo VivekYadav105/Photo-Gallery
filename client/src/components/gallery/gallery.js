@@ -16,11 +16,6 @@ export default function Gallery(){
     const {user} = useContext(UserContext)
     const [uploadProgress, setUploadProgress] = useState(0);
 
-    useEffect(()=>{
-        console.log(user)
-        if(!user||!user.length) return <Navigate to={'/login'} replace/>
-    },[user])
-
     async function uploadPhoto(e){
         e.preventDefault()
         console.log("inside")
@@ -91,6 +86,8 @@ export default function Gallery(){
         }
         getPhotos()
     },[user])
+
+    if(!localStorage.getItem('user')) return <Navigate to={'/login'} replace/>
 
     return(
         <section className="gallery-container">

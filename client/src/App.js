@@ -28,22 +28,21 @@ function App() {
   useEffect(()=>{
     function checkUser(){
       const storedUser = localStorage.getItem(process.env.REACT_APP_USER_SESSION_LOGIN)
-      console.log(storedUser)
       if(storedUser){
-        setUser(JSON.parse(storedUser))
+        setUser(atob(storedUser.split('.')[1]))
       }
     }
     checkUser()
   },[])
   
   function logout() {
-    localStorage.setItem(process.env.REACT_APP_USER_SESSION_LOGIN, JSON.stringify(''));
+    localStorage.setItem(process.env.REACT_APP_USER_SESSION_LOGIN, null);
     setUser(null);
   }
 
   function login(i) {
     setUser(i);
-    localStorage.setItem(process.env.REACT_APP_USER_SESSION_LOGIN, JSON.stringify(i));
+    localStorage.setItem(process.env.REACT_APP_USER_SESSION_LOGIN, i);
   }
 
   return (
@@ -71,7 +70,7 @@ function App() {
             <Route
               path="/"
               exact
-              element={user ? <Gallery /> : <Navigate to="/login" replace/>}
+              element={<Gallery/>}
             />
             <Route path="/home" element={<Home/>}/>
             <Route path="*" element={<NotFound/>}/>
